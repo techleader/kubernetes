@@ -1,4 +1,10 @@
 # Create a Pod in the cre Namespace with the following configuration: the Pod is named basic, the Pod uses the nginx:stable-alpine-perl image for its only container, restart the Pod only OnFailure, ensure port 80 is open to TCP traffic
+#Via command:
+kubectl run -n cre --image=nginx:stable-alpine-perl --restart=OnFailure --port=80 basic
+
+#Via Config file as below
+
+
 apiVersion: v1
 kind: Pod
 metadata:
