@@ -1,0 +1,23 @@
+#Create a new Namespace named workers and within it launch a Pod with the following configuration:
+#The Pod is named worker
+#The Pod uses the busybox image for its only container
+#Restart the Pod Never
+#Command: /bin/sh -c "echo working... && sleep 3600"
+#Label 1: company=acme
+#Label 2: speed=fast
+#Label 3: type=async
+
+apiVersion: v1
+kind: Pod
+metadata:
+ name: worker
+ namespace: workers
+ labels:
+  company: acme
+  speed: fast
+  type: async
+spec:
+ containers:
+  - name: busybox
+    image: busybox:latest
+ restartPolicy: Never
