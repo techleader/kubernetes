@@ -1,0 +1,13 @@
+# Create a Pod in the cre Namespace with the following configuration: the Pod is named basic, the Pod uses the nginx:stable-alpine-perl image for its only container, restart the Pod only OnFailure, ensure port 80 is open to TCP traffic
+apiVersion: v1
+kind: Pod
+metadata:
+ name: basic
+ namespace: cre
+spec:
+ containers:
+  - name: nginx
+    image: nginx:stable-alpine-perl
+    ports:
+    - containerPort: 80
+ restartPolicy: OnFailure
