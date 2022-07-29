@@ -1,3 +1,5 @@
+kubectl create configmap config1 -n app --from-literal COLOUR=red --from-literal SPEED=fast
+
 apiVersion: v1
 kind: Pod
 metadata:
