@@ -1,0 +1,20 @@
+
+spec:
+  containers:
+  - args: [/bin/sh,-c,'tail -n+1 -F /var/log/random.log']
+    image: busybox
+    imagePullPolicy: Always
+    name: second
+    resources: {}
+    volumeMounts:
+    - name: logs
+      mountPath: /var/log
+  - args:
+    - /bin/sh
+    - -c
+    - mkdir -p /var/log; while true; do shuf -i 0-1 -n 1 >> /var/log/random.log; sleep
+      1; done
+    image: busybox
+    imagePullPolicy: Always
+    name: random
+    resources: {}
