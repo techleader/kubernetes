@@ -7,6 +7,9 @@
 #Label 2: speed=fast
 #Label 3: type=async
 
+#Command
+#kubectl run -n workers worker --image=busybox --labels="company=acme,speed=fast,type=async" -- /bin/sh -c "echo working... && sleep 3600"
+
 apiVersion: v1
 kind: Pod
 metadata:
