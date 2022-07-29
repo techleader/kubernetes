@@ -1,1 +1,28 @@
 Launch Pod and Configure it's Termination Shutdown Time
+# Step 1 - Use kubectl run command specifically with the --dry-run=client and -o yaml parameters - and then redirect the output to file
+kubectl run web-zeroshutdown -n sys2 --image=nginx --restart=Never --port=80 -o yaml --dry-run=client > pod-zeroshutdown.yaml
+# Step 2 - use kubectl explain pod.spec to check the syntax and how the terminationGracePeriodSeconds attribute should be configured
+kubectl explain pod.spec
+# Step 3 - use vim and edit and update the pod-zeroshutdown.yaml file, adding in -> terminationGracePeriodSeconds: 0
+apiVersion: v1
+kind: Pod
+metadata:
+ creationTimestamp: null
+ labels:
+  run: web-zeroshutdown
+ name: web-zeroshutdown
+ namespace: sys2
+spec:
+ terminationGracePeriodSeconds: 0
+ containers:
+ - image: nginx
+   name: web-zeroshutdown
+   ports:
+   - containerPort: 80
+   resources: {}
+   dnsPolicy: ClusterFirst
+   restartPolicy: Never
+status: {}
+# Step 4 - use kubectl apply -f pod-zeroshutdown.yaml to create the pod resource within the cluster
+kubectl apply -f pod-zeroshutdown.yaml
+
