@@ -1,4 +1,6 @@
 # kubectl patch deployment -n app secapp --patch "$(cat patch.yaml)"
+# The nginx container running within the cloudforce deployment in the fre namespace needs to be updated to use the nginx:1.19.0-perl image. Perform this deployment update and ensure that the command used to perform it is recorded in the tracked rollout history.
+kubectl -n fre set image deployment cloudforce nginx=nginx:1.19.0-perl --record
 
 apiVersion: apps/v1
 kind: Deployment
