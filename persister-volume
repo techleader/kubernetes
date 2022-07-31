@@ -1,0 +1,51 @@
+#Attaching claim in POD
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: block-pvc
+        
+#PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv
+spec:
+  storageClassName: host
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+    
+----
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    env: prod
+  name: logger
+  namespace: blah
+spec:
+  containers:
+  - image: bash
+    volumeMounts:
+    - name: vol1
+      mountPath: /var/log/blah
+    name: c1
+    command: ["/usr/local/bin/bash", "-c"]
+    args:
+    - ifconfig > /var/log/blah/data;
+      sleep 3600;
+  - image: bash
+    name: c2
+    volumeMounts:
+    - name: vol1
+      mountPath: /var/log/blah
+    command: ["/usr/local/bin/bash", "-c"]
+    args:
+    - sleep 3600;
+  volumes:
+  - name: vol1
+    hostPath:
+      path: /tmp/vol
