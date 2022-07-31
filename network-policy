@@ -1,0 +1,14 @@
+#Allow connection from pod1 to pod2
+ame:         netpol1
+Namespace:    sec1
+Created on:   2022-07-30 23:54:58 +0000 UTC
+Labels:       <none>
+Annotations:  <none>
+Spec:
+  PodSelector:     app=pod1
+  Allowing ingress traffic:
+    To Port: <any> (traffic allowed to all ports)
+    From:
+      PodSelector: app=pod2
+  Not affecting egress traffic
+  Policy Types: Ingress
