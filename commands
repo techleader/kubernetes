@@ -25,4 +25,7 @@ kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml
 kubectl expose pod nginx --port=80 --name nginx-service --type=NodePort --dry-run=client -o yaml
 OR
 kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml
+
+#Setting service account to deployment
+kubectl set serviceaccount deploy/deployment-name sa-name
  
